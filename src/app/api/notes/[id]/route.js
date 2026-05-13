@@ -1,26 +1,55 @@
-import pool from "@/lib/db";
- 
-export async function PUT(req, { params }) {
+import { NextResponse } from "next/server";
+import db from "@/lib/db";
+
+// UPDATE note
+export async function PUT(request, context) {
   try {
-    const { title, content } = await req.json();
- 
-    await pool.query(
-      "UPDATE notes SET title=?, content=? WHERE id=?",
-      [title, content, params.id]
+    const params = await context.params;
+    const id = params.id;
+
+    const body = await request.json();
+    const { title, content } = body;
+
+    await db.query(
+      "UPDATE note3_app SET title=?, content=? WHERE id=?",
+      [title, content, id]
     );
- 
-    return Response.json({ message: "Note updated" });
+
+    return NextResponse.json({
+      success: true,
+      message: "Note updated",
+    });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.log(error);
+
+    return NextResponse.json(
+      { error: error.message },
+      { status: 500 }
+    );
   }
 }
- 
-export async function DELETE(req, { params }) {
+
+// DELETE note
+export async function DELETE(request, context) {
   try {
-    await pool.query("DELETE FROM notes WHERE id=?", [params.id]);
- 
-    return Response.json({ message: "Note deleted" });
+    const params = await context.params;
+    const id = params.id;
+
+    await db.query(
+      "DELETE FROM note3_app WHERE id=?",
+      [id]
+    );
+
+    return NextResponse.json({
+      success: true,
+      message: "Note deleted",
+    });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.log(error);
+
+    return NextResponse.json(
+      { error: error.message },
+      { status: 500 }
+    );
   }
 }

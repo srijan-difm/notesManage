@@ -39,7 +39,7 @@ export default function NoteForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white shadow-md p-5 rounded-xl mb-6"
+      className="bg-white p-5 rounded shadow mb-5"
     >
       <input
         type="text"
@@ -48,7 +48,7 @@ export default function NoteForm({
         onChange={(e) =>
           setTitle(e.target.value)
         }
-        className="w-full border p-3 rounded-lg mb-3"
+        className="w-full border p-3 mb-3 rounded"
       />
 
       <textarea
@@ -57,12 +57,12 @@ export default function NoteForm({
         onChange={(e) =>
           setContent(e.target.value)
         }
-        className="w-full border p-3 rounded-lg mb-3"
+        className="w-full border p-3 mb-3 rounded"
       />
 
       <button
         type="submit"
-        className="bg-blue-500 text-white px-5 py-2 rounded-lg"
+        className="bg-blue-500 text-white px-4 py-2 rounded"
       >
         {editingNote
           ? 'Update Note'

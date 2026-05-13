@@ -4,8 +4,9 @@ import db from "@/lib/db";
 // GET all notes
 export async function GET() {
   try {
-    const [rows] = await db.query("SELECT * FROM note3_app");
-    console.log("POST WORKING");
+    const [rows] = await db.query(
+      "SELECT * FROM note3_app ORDER BY created_at DESC"
+    );
 
     return NextResponse.json(rows);
   } catch (error) {
@@ -34,7 +35,6 @@ export async function POST(request) {
       content,
     });
   } catch (error) {
-
     return NextResponse.json(
       { error: error.message },
       { status: 500 }
